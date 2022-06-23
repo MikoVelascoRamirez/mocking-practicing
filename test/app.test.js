@@ -1,3 +1,5 @@
+jest.mock('../http')
+
 const { loadTitle } = require('../app')
 
 describe("Tests for main application", () => {
