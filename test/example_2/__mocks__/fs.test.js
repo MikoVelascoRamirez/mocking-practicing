@@ -1,4 +1,4 @@
-jest.mock('fs');
+jest.mock('fs'); //We might to use this with a core module. Otherwise, if it's a third-party module not necessary.
 
 const fs = require('fs');
 
@@ -26,4 +26,18 @@ describe("Tests for mocking module fs", () => {
         const getFiles = fs.readdirSync('/home/miko/Descargas/Postman'); 
         expect(getFiles).toEqual(expect.arrayContaining(['Postman', 'app', 'log.txt']));
     });
+
+    it("3. Throwing empty directory resume", () => {
+        const route = {
+            '/home/miko/Descargas/Postman/Postman' : 'uwu',
+            '/home/miko/Descargas/Postman/app' : 'uwu',
+            '/home/miko/Descargas/Postman/log.txt' : 'uwu'
+        }
+        fs.__setMockFiles(route);
+        const getFiles = fs.readdirSync('/home/miko/Descargas/Postman/hola'); 
+        
+        expect.assertions(2);
+        expect(getFiles).toHaveLength(0);
+        expect(getFiles).toEqual(expect.arrayContaining([]));
+    })
 });
